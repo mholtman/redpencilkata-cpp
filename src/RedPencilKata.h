@@ -11,7 +11,8 @@ class RedPencilItem {
   int modifiedPriceInCents;
   date promoEndDate;
   date promoStartDate;
-  bool LowerBoundHonored(int);
+  bool MinPercentageHonored(int);
+  bool MaxPercentageHonored(int);
  public:
   RedPencilItem(int);
   ~RedPencilItem();

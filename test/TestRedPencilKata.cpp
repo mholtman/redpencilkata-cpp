@@ -58,4 +58,14 @@ namespace {
     ASSERT_EQ(9500, i.GetModifiedPrice());
   }
 
+  TEST(RedPencilItem, PriceChangeMustBeLessThan30Percent) {
+    RedPencilItem i (10000);
+    i.ChangePrice(6999);
+    ASSERT_NE(6999, i.GetModifiedPrice());
+
+    RedPencilItem j (10000);
+    i.ChangePrice(7000);
+    ASSERT_EQ(7000, i.GetModifiedPrice());
+  }
+
 }

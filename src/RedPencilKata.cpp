@@ -60,7 +60,7 @@ bool RedPencilItem::IsStable() {
 }
  
 void RedPencilItem::ChangePrice(int newPrice) {
-  if(IsStable() && LowerBoundHonored(newPrice))
+  if(IsStable() && MaxPercentageHonored(newPrice) && MinPercentageHonored(newPrice) )
   {
     modifiedPriceInCents = newPrice;
     promoStartDate = date(day_clock::local_day());
@@ -70,9 +70,15 @@ void RedPencilItem::ChangePrice(int newPrice) {
   }
 }
 
-bool RedPencilItem::LowerBoundHonored(int newPrice) {
+bool RedPencilItem::MinPercentageHonored(int newPrice) {
   double tempPrice = priceInCents  * 0.95;
 
   return newPrice <= tempPrice;
 
+}
+
+bool RedPencilItem::MaxPercentageHonored(int newPrice) {
+  double tempPrice = priceInCents * 0.70;
+
+  return newPrice >= tempPrice;
 }
