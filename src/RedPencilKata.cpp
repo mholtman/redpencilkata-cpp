@@ -60,7 +60,7 @@ bool RedPencilItem::IsStable() {
 }
  
 void RedPencilItem::ChangePrice(int newPrice) {
-  if(IsStable())
+  if(IsStable() && LowerBoundHonored(newPrice))
   {
     modifiedPriceInCents = newPrice;
     promoStartDate = date(day_clock::local_day());
@@ -68,4 +68,11 @@ void RedPencilItem::ChangePrice(int newPrice) {
     promoEndDate = promoStartDate + ddThirty;
 
   }
+}
+
+bool RedPencilItem::LowerBoundHonored(int newPrice) {
+  double tempPrice = priceInCents  * 0.95;
+
+  return newPrice <= tempPrice;
+
 }

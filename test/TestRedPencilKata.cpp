@@ -22,11 +22,6 @@ namespace {
     }
   };
 
-  TEST(TestRedPencilKata, CompletelyUnrelated) {
-    ASSERT_EQ(1 ,1);
-
-  }
-
   TEST(RedPencilItem, ConstructorWorks) {
     RedPencilItem i (100);
     ASSERT_EQ(100, i.GetOriginalPrice());
@@ -53,5 +48,14 @@ namespace {
     i.ChangePrice(90);
     ASSERT_TRUE(!i.GetPromoStartDate().is_special());
     ASSERT_TRUE(!i.GetPromoEndDate().is_special());
-}
+  }
+
+  TEST(RedPencilItem, PriceChangeMustBeMoreThan5Percent){
+    RedPencilItem i (10000);
+    i.ChangePrice(9900);
+    ASSERT_NE(9900, i.GetModifiedPrice());
+    i.ChangePrice(9500);
+    ASSERT_EQ(9500, i.GetModifiedPrice());
+  }
+
 }
