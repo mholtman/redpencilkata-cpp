@@ -6,11 +6,12 @@ using namespace boost::posix_time;
 using namespace boost::gregorian;
 
 class RedPencilItem {
-  int *priceInCents = NULL;
-  int *modifiedPriceInCents = NULL;
-  date *promoEndDate = NULL;
-  date *promoStartDate = NULL;
-public:
+ private:
+  int priceInCents;
+  int modifiedPriceInCents;
+  date promoEndDate;
+  date promoStartDate;
+ public:
   RedPencilItem(int);
   ~RedPencilItem();
   int GetOriginalPrice();
