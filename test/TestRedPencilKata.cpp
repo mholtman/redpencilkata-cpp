@@ -42,6 +42,10 @@ namespace {
     ASSERT_TRUE(i.IsStable());
   }
 
-
+  TEST(RedPencilItem, CanChangePriceOnNewItem) {
+    RedPencilItem i (100);
+    i.ChangePrice(90);
+    ASSERT_EQ(90, i.GetModifiedPrice());
+  }
 
 }

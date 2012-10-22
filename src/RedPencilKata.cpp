@@ -10,7 +10,7 @@ RedPencilItem::RedPencilItem(int price){
     *priceInCents = price;
     modifiedPriceInCents = new int;
     *modifiedPriceInCents = price;
-    
+   *promoEndDate = date (not_a_date_time);
 }
 
 RedPencilItem::~RedPencilItem(){
@@ -30,18 +30,19 @@ bool RedPencilItem::IsStable() {
   using namespace boost::posix_time;
   using namespace boost::gregorian;
 
-   ptime now = second_clock::local_time();
+  ptime now = second_clock::local_time();
   date today = now.date();
   date_duration ddEndPromo(30);
   date stableDate = today + ddEndPromo;
+  date_duration stableInterval = stableDate - *promoEndDate;
   
-  if (!promoEndDate)
+  if (promoEndDate->is_not_a_date())
   {
     return true;
   }
-  else if (stableDate <= promoEndDate)
+  else if (stableInterval.days() >= 30)
   {
-    return true
+    return true;
   }
   
   return false;
@@ -49,3 +50,10 @@ bool RedPencilItem::IsStable() {
  
 }
  
+void RedPencilItem::ChangePrice(int newPrice) {
+  if(IsStable())
+  {
+    *modifiedPriceInCents = newPrice;
+
+  }
+}
