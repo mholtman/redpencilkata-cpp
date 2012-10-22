@@ -48,4 +48,10 @@ namespace {
     ASSERT_EQ(90, i.GetModifiedPrice());
   }
 
+  TEST(RedPencilItem, PriceChangeSetsStartAndEndDates){
+    RedPencilItem i (100);
+    i.ChangePrice(90);
+    ASSERT_TRUE(!i.GetPromoStartDate().is_special());
+    ASSERT_TRUE(!i.GetPromoEndDate().is_special());
+}
 }

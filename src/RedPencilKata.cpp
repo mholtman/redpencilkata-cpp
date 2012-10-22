@@ -5,12 +5,19 @@
 using namespace boost::posix_time;
 using namespace boost::gregorian;
 
+int *priceInCents = new int;
+int *modifiedPriceInCents = new int;
+date *promoEndDate;
+date *promoStartDate;
+
 RedPencilItem::RedPencilItem(int price){
-    priceInCents = new int;
     *priceInCents = price;
-    modifiedPriceInCents = new int;
+    //*priceInCents = price;
     *modifiedPriceInCents = price;
-   *promoEndDate = date (not_a_date_time);
+    //*modifiedPriceInCents = price;
+    *promoEndDate = date (not_a_date_time);
+    *promoStartDate = date (not_a_date_time);
+
 }
 
 RedPencilItem::~RedPencilItem(){
@@ -24,6 +31,14 @@ int RedPencilItem::GetOriginalPrice() {
 
 int RedPencilItem::GetModifiedPrice() {
   return *modifiedPriceInCents;
+}
+
+date RedPencilItem::GetPromoStartDate() {
+  return *promoStartDate;
+}
+
+date RedPencilItem::GetPromoEndDate() {
+  return *promoEndDate;
 }
 
 bool RedPencilItem::IsStable() {
@@ -54,6 +69,9 @@ void RedPencilItem::ChangePrice(int newPrice) {
   if(IsStable())
   {
     *modifiedPriceInCents = newPrice;
+    *promoStartDate = date(day_clock::local_day());
+    date_duration ddThirty(30);
+    *promoEndDate = *promoStartDate + ddThirty;
 
   }
 }
