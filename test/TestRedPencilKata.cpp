@@ -64,8 +64,13 @@ namespace {
     ASSERT_NE(6999, i.GetModifiedPrice());
 
     RedPencilItem j (10000);
-    i.ChangePrice(7000);
-    ASSERT_EQ(7000, i.GetModifiedPrice());
+    j.ChangePrice(7000);
+    ASSERT_EQ(7000, j.GetModifiedPrice());
   }
 
+  TEST(RedPencilItem, CurrentlyPromotedItemUnstable){
+    RedPencilItem i (10000);
+    i.ChangePrice(9000);
+    ASSERT_FALSE(i.IsStable());
+  }
 }
