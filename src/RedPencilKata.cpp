@@ -73,6 +73,9 @@ void RedPencilItem::ChangePrice(int newPrice) {
 	promoEndDate = date(day_clock::local_day());
 	modifiedPriceInCents = priceInCents;
       }
+    else {
+      modifiedPriceInCents = newPrice;
+    }
   }
 }
 

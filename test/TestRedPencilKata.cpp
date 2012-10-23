@@ -91,4 +91,14 @@ namespace {
     i.ChangePrice(6999);
     ASSERT_FALSE(i.IsBeingPromoted());
   }
+
+  TEST(RedPencilItem, LegalPriceDecreaseContinuesPromotion){
+    RedPencilItem i (10000);
+    ASSERT_FALSE(i.IsBeingPromoted());
+    i.ChangePrice(9000);
+    ASSERT_TRUE(i.IsBeingPromoted());
+    i.ChangePrice(8500);
+    ASSERT_TRUE(i.IsBeingPromoted());
+    
+  }
 }
