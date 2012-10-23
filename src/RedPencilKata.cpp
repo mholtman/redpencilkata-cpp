@@ -60,25 +60,34 @@ bool RedPencilItem::IsStable() {
 }
  
 void RedPencilItem::ChangePrice(int newPrice) {
-  if(IsStable() && MaxPercentageHonored(newPrice) && MinPercentageHonored(newPrice) )
+  if(IsStable() && maxPercentageHonored(newPrice) && minPercentageHonored(newPrice) )
   {
     modifiedPriceInCents = newPrice;
     promoStartDate = date(day_clock::local_day());
     date_duration ddThirty(30);
     promoEndDate = promoStartDate + ddThirty;
 
-  }
+  } else if (IsBeingPromoted() && (newPrice > modifiedPriceInCents)){
+    promoEndDate = date(day_clock::local_day());
+    modifiedPriceInCents = priceInCents;
+ }
+  
 }
 
-bool RedPencilItem::MinPercentageHonored(int newPrice) {
+bool RedPencilItem::minPercentageHonored(int newPrice) {
   double tempPrice = priceInCents  * 0.95;
 
   return newPrice <= tempPrice;
 
 }
 
-bool RedPencilItem::MaxPercentageHonored(int newPrice) {
+bool RedPencilItem::maxPercentageHonored(int newPrice) {
   double tempPrice = priceInCents * 0.70;
 
   return newPrice >= tempPrice;
+}
+
+bool RedPencilItem::IsBeingPromoted(){
+  return modifiedPriceInCents !=  priceInCents;
+
 }

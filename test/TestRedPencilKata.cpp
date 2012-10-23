@@ -73,4 +73,16 @@ namespace {
     i.ChangePrice(9000);
     ASSERT_FALSE(i.IsStable());
   }
+
+  TEST(RedPencilItem, PriceIncreaseEndsPromotion){
+    RedPencilItem i (10000);
+    i.ChangePrice(9000);
+    ASSERT_EQ(9000, i.GetModifiedPrice());
+    ASSERT_TRUE(i.IsBeingPromoted());
+    i.ChangePrice(9001);
+    ASSERT_FALSE(i.IsBeingPromoted());
+    
+}
+
+
 }
