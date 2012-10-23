@@ -67,11 +67,13 @@ void RedPencilItem::ChangePrice(int newPrice) {
     date_duration ddThirty(30);
     promoEndDate = promoStartDate + ddThirty;
 
-  } else if (IsBeingPromoted() && (newPrice > modifiedPriceInCents)){
-    promoEndDate = date(day_clock::local_day());
-    modifiedPriceInCents = priceInCents;
- }
-  
+  } else if (IsBeingPromoted()) {
+    if (newPrice > modifiedPriceInCents || !maxPercentageHonored(newPrice))
+      {
+	promoEndDate = date(day_clock::local_day());
+	modifiedPriceInCents = priceInCents;
+      }
+  }
 }
 
 bool RedPencilItem::minPercentageHonored(int newPrice) {

@@ -82,7 +82,13 @@ namespace {
     i.ChangePrice(9001);
     ASSERT_FALSE(i.IsBeingPromoted());
     
-}
+  }
 
-
+  TEST(RedPencilItem, IllegalPriceDecreaseEndsPromotion){
+    RedPencilItem i (10000);
+    i.ChangePrice(9000);
+    ASSERT_TRUE(i.IsBeingPromoted());
+    i.ChangePrice(6999);
+    ASSERT_FALSE(i.IsBeingPromoted());
+  }
 }
